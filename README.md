@@ -59,4 +59,14 @@ npm run testui
 npm run report
 npm run reportOpen
 ```
+---
+## Запуск [workflow в GitHub Actions](https://github.com/grisha-as/academybugs/actions/workflows/main.yml)
 
+Workflow настроен на ручной запуск через Github Actions. Для этого нужно перейти в раздел Actions в репозитории, выбрать workflow "Playwright tests" и нажать "Run workflow".
+
+<img src="./images/git.png" alt="allure" width="1100" height="400"/>
+
+---
+## Пример [Allure отчета](https://grisha-as.github.io/academybugs/)
+
+<img src="./images/allure.png" alt="allure" width="1100" height="400"/>
