@@ -1,0 +1,8 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","4269","@Content Description should translate it to English language","chromium","Tue Apr 22 16:39:08 GMT 2025","passed","Tue Apr 22 16:39:12 GMT 2025","Find bugs","findBugs.spec.js","",""
+"","9265","@Functional Manufacturer page can’t be found","chromium","Tue Apr 22 16:38:58 GMT 2025","passed","Tue Apr 22 16:39:08 GMT 2025","Find bugs","findBugs.spec.js","",""
+"","3704","@Crash Post comment","chromium","Tue Apr 22 16:39:18 GMT 2025","passed","Tue Apr 22 16:39:22 GMT 2025","Find bugs","findBugs.spec.js","",""
+"","1477","@Crash View quantity by 50","chromium","Tue Apr 22 16:39:14 GMT 2025","passed","Tue Apr 22 16:39:15 GMT 2025","Find bugs","findBugs.spec.js","",""
+"","1948","@Crash View quantity by 10","chromium","Tue Apr 22 16:39:12 GMT 2025","passed","Tue Apr 22 16:39:14 GMT 2025","Find bugs","findBugs.spec.js","",""
+"","4480","@UI Size productImage for product Dark Grey Jeans","chromium","Tue Apr 22 16:38:54 GMT 2025","passed","Tue Apr 22 16:38:58 GMT 2025","Find bugs","findBugs.spec.js","",""
+"","2752","@Crash Select currency","chromium","Tue Apr 22 16:39:15 GMT 2025","passed","Tue Apr 22 16:39:18 GMT 2025","Find bugs","findBugs.spec.js","",""
