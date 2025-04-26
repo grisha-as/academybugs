@@ -1,0 +1,239 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Find bugs >> @Crash Select currency
+- Location: /home/runner/work/academybugs/academybugs/tests/findBugs.spec.js:55:6
+
+# Error details
+
+```
+Error: Timed out 10000ms waiting for expect(locator).toBeVisible()
+
+Locator: getByRole('heading', { name: 'You found a crash bug' })
+Expected: visible
+Received: <element(s) not found>
+Call log:
+  - expect.toBeVisible with timeout 10000ms
+  - waiting for getByRole('heading', { name: 'You found a crash bug' })
+
+    at /home/runner/work/academybugs/academybugs/tests/findBugs.spec.js:60:44
+    at /home/runner/work/academybugs/academybugs/tests/findBugs.spec.js:59:14
+```
+
+# Page snapshot
+
+```yaml
+- dialog "cookieconsent":
+  - text: "We use cookies to optimize our website and our service:"
+  - link "Cookie Policy"
+  - button "Functional only"
+  - button "Accept cookies"
+- link "Skip to content"
+- banner:
+  - heading "AcademyBugs.com" [level=3]:
+    - link "AcademyBugs.com"
+  - navigation:
+    - list:
+      - listitem:
+        - link "Examples of Bugs"
+      - listitem:
+        - link "Types of Bugs"
+      - listitem:
+        - link "Find Bugs"
+      - listitem:
+        - link "Report Bugs"
+      - listitem:
+        - link ""
+- main:
+  - article:
+    - heading "Home / Shop / All Items" [level=4]:
+      - link "Home"
+      - text: /
+      - link "Shop"
+      - text: /
+      - link "All Items"
+    - img "DNK Yellow Shoes"
+    - heading "Home / Shop / All Items" [level=4]:
+      - link "Home"
+      - text: /
+      - link "Shop"
+      - text: /
+      - link "All Items"
+    - heading "DNK Yellow Shoes" [level=1]
+    - text: "$45.00 Model Number: 4481370 Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit sed."
+    - button "-"
+    - spinbutton: "1"
+    - button "+"
+    - button "ADD TO CART"
+    - text: "Your Price: $45.00 Manufacturer:"
+    - link "DNK"
+    - link "Facebook":
+      - img "Facebook"
+    - link "X":
+      - img "X"
+    - link "Email":
+      - img "Email"
+    - link "Pinterest":
+      - img "Pinterest"
+    - link "LinkedIn":
+      - img "LinkedIn"
+    - link "MySpace":
+      - img "MySpace"
+    - list:
+      - listitem: Description
+    - paragraph: Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit sed.
+  - heading "Leave a Reply" [level=3]
+  - paragraph: Your email address will not be published. Required fields are marked *
+  - paragraph:
+    - textbox "Comment"
+  - paragraph:
+    - textbox "Name*"
+  - paragraph:
+    - textbox "Email*"
+  - paragraph:
+    - textbox "Website"
+  - paragraph:
+    - button "Post Comment"
+- heading "Select a Currency" [level=4]
+- combobox:
+  - option "USD"
+  - option "EUR" [selected]
+  - option "GBP"
+  - option "JPY"
+- heading "Product Search" [level=4]
+- combobox
+- button "Search"
+- heading "Hot Item" [level=4]
+- link:
+  - img
+- link "Silver Heart Bracelet"
+- text: $275.00
+- heading "Store Menu" [level=4]
+- list:
+  - listitem:
+    - link "All Items"
+  - listitem:
+    - link "Accessories [+]"
+  - listitem:
+    - link "Fashion Type [+]"
+  - listitem:
+    - link "Women's Pants"
+- heading "Filter by Price" [level=4]
+- link "$15.00 - $19.99 (1)"
+- link "$25.00 - $49.99 (2)"
+- link "$50.00 - $99.99 (3)"
+- link "$100.00 - $299.99 (11)"
+- link "Greater Than $299.99 (1)"
+- heading "Shopping Cart" [level=4]
+- link "Shopping Cart (0)"
+- heading "Your Account" [level=4]
+- text: Email Address*
+- textbox
+- text: Password*
+- textbox
+- paragraph:
+  - link "Sign Up"
+- button "SIGN IN"
+- contentinfo:
+  - list:
+    - listitem:
+      - link "uTest":
+        - img "uTest"
+    - listitem:
+      - link "Terms & Conditions"
+    - listitem:
+      - link "Privacy Policy"
+- link ""
+```
+
+# Test source
+
+```ts
+   1 | import { expect } from '@playwright/test';
+   2 | import { test } from '../src/fixture/fixture';
+   3 | import { CommentBuilder } from '../src/helpers/builder';
+   4 | import { errorMessages } from '../src/helpers/errorMassages';
+   5 |
+   6 | test.describe('Find bugs', () => {
+   7 | 	
+   8 | 	test('@UI Size productImage for product Dark Grey Jeans', async ({ app }) => {
+   9 | 		await app.mainPage.openProductImage();
+  10 | 		
+  11 | 		await test.step(`Проверка, что виден текст 'What did you find out'`, async () => {
+  12 | 			await expect(app.mainPage.bugPopup).toBeVisible();
+  13 | 			await expect(app.mainPage.bugPopup).toContainText(errorMessages.bugPopup);
+  14 | 		})
+  15 |    	});
+  16 |
+  17 | 	test('@Functional Manufacturer page can’t be found', async ({ app }) => {
+  18 | 		await app.mainPage.goToProductPage();
+  19 | 		await app.productPage.goToManufacturerInfo();
+  20 |
+  21 | 		await test.step(`Проверка, что виден текст 'What did you find out'`, async () => {
+  22 | 			await expect(app.mainPage.bugPopup).toBeVisible();
+  23 | 			await expect(app.mainPage.bugPopup).toContainText(errorMessages.bugPopup);
+  24 | 		})
+  25 |    	});
+  26 |
+  27 | 	   test('@Content Description should translate it to English language', async ({ app }) => {
+  28 | 		await app.mainPage.goToProductPage();
+  29 | 		await app.productPage.clickProductDescription();
+  30 |
+  31 | 		await test.step(`Проверка, что виден текст 'What did you find out'`, async () => {
+  32 | 			await expect(app.mainPage.bugPopup).toBeVisible();
+  33 | 			await expect(app.mainPage.bugPopup).toContainText(errorMessages.bugPopup);
+  34 | 		})
+  35 |    	});
+  36 |
+  37 | 	test('@Crash View quantity by 10', async ({ app }) => {
+  38 | 		await app.mainPage.getViewQuantity(10);
+  39 |
+  40 | 		await test.step(`Проверка, что виден текст 'You found a crash bug'`, async () => {
+  41 | 			await expect(app.mainPage.crashOverlay).toBeVisible();
+  42 | 			await expect(app.mainPage.crashOverlay).toContainText(errorMessages.crashBug);
+  43 |    		})
+  44 | 	});
+  45 |
+  46 | 	test('@Crash View quantity by 50', async ({ app }) => {
+  47 | 		await app.mainPage.getViewQuantity(50);
+  48 |
+  49 | 		await test.step(`Проверка, что виден текст 'You found a crash bug'`, async () => {
+  50 | 			await expect(app.mainPage.crashOverlay).toBeVisible();
+  51 | 			await expect(app.mainPage.crashOverlay).toContainText(errorMessages.crashBug);
+  52 |    		})
+  53 | 	});
+  54 |
+  55 | 	test('@Crash Select currency', async ({ app }) => {
+  56 | 		await app.mainPage.goToProductPage();
+  57 | 		await app.productPage.selectСurrency('EUR');
+  58 |
+  59 | 		await test.step(`Проверка, что виден текст 'You found a crash bug'`, async () => {
+> 60 | 			await expect(app.mainPage.crashOverlay).toBeVisible();
+     | 			                                        ^ Error: Timed out 10000ms waiting for expect(locator).toBeVisible()
+  61 | 			await expect(app.mainPage.crashOverlay).toContainText(errorMessages.crashBug);
+  62 |    		})
+  63 | 	});
+  64 |
+  65 | 	test('@Crash Post comment', async ({ app }) => {
+  66 | 		const commentBuilder = new CommentBuilder()
+  67 | 			.addComment()
+  68 | 			.addUsername()
+  69 | 			.addEmail()
+  70 | 			.generate();
+  71 | 				
+  72 | 		await app.mainPage.goToProductPage();
+  73 | 		await app.productPage.postComment(commentBuilder.comment, commentBuilder.username, commentBuilder.email);
+  74 |
+  75 | 		await test.step(`Проверка, что виден текст 'You found a crash bug'`, async () => {
+  76 | 			await expect(app.mainPage.crashOverlay).toBeVisible();
+  77 | 			await expect(app.mainPage.crashOverlay).toContainText(errorMessages.crashBug);
+  78 |    		})
+  79 | 	});
+  80 |
+  81 | });
+```
