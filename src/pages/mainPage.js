@@ -9,6 +9,7 @@ export class MainPage {
 
         this.closePopupButton = page.locator('#close-popup');
         this.viewQuantity10Button = page.getByRole('link', { name: '10' });
+        this.viewQuantity25Button = page.getByRole('link', { name: '25' });
         this.viewQuantity50Button = page.getByRole('link', { name: '50' });
         this.productImage = page.locator('#ec_product_image_effect_4281370').getByRole('link');
         this.productName = page.getByRole('link', { name: 'DNK Yellow Shoes' });
@@ -40,7 +41,7 @@ export class MainPage {
                     await this.viewQuantity10Button.click();
                     break;
                 case 25:
-                    await this.viewQuantity50Button.click();
+                    await this.viewQuantity25Button.click();
                     break;
                 case 50:
                     await this.viewQuantity50Button.click();
