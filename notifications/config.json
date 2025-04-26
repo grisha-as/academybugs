@@ -1,0 +1,20 @@
+{
+    "base": {
+      "logo": "",
+      "project": "academybugs",
+      "environment": "prod",
+      "comment": "UI autotests",
+      "reportLink": "",
+      "language": "en",
+      "allureFolder": "allure-report",
+      "enableChart": true,
+      "enableSuitesPublishing": false,
+      "customData": {}
+    },
+    "telegram": {
+      "token": "8043865229:AAF4Ac03aYKUiV_JRM1mhoRx_VT3Vts0JQk",
+      "chat": "-4672895085",
+      "topic": "",
+      "replyTo": ""
+    }
+}    
