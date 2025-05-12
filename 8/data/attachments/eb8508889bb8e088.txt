@@ -1,0 +1,154 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Find bugs >> @UI Size productImage for product Dark Grey Jeans
+- Location: /home/runner/work/academybugs/academybugs/tests/findBugs.spec.js:7:6
+
+# Error details
+
+```
+Error: locator.click: Test timeout of 60000ms exceeded.
+Call log:
+  - waiting for locator('#ec_product_image_effect_4281370').getByRole('link')
+
+    at /home/runner/work/academybugs/academybugs/src/pages/mainPage.js:27:37
+    at MainPage.openProductImage (/home/runner/work/academybugs/academybugs/src/pages/mainPage.js:26:20)
+    at /home/runner/work/academybugs/academybugs/tests/findBugs.spec.js:8:22
+```
+
+# Page snapshot
+
+```yaml
+- dialog "cookieconsent":
+  - text: "We use cookies to optimize our website and our service:"
+  - link "Cookie Policy"
+  - button "Functional only"
+  - button "Accept cookies"
+- link "Skip to content"
+- banner:
+  - heading "AcademyBugs.com" [level=3]:
+    - link "AcademyBugs.com"
+  - navigation:
+    - list:
+      - listitem:
+        - link "Examples of Bugs"
+      - listitem:
+        - link "Types of Bugs"
+      - listitem:
+        - link "Find Bugs"
+      - listitem:
+        - link "Report Bugs"
+      - listitem:
+        - link ""
+- heading "Examples of Bugs" [level=3]
+- heading "Discover some examples of real bugs and recreate them yourself." [level=6]
+- link " Social share buttons don't work Many websites have buttons for sharing information, but in this example those buttons don’t work.":
+  - paragraph: 
+  - heading "Social share buttons don't work" [level=5]
+  - paragraph: Many websites have buttons for sharing information, but in this example those buttons don’t work.
+- link " Send button returns an error page Users should be able to send a message when clicking send, but in this example the button returns an error page.":
+  - paragraph: 
+  - heading "Send button returns an error page" [level=5]
+  - paragraph: Users should be able to send a message when clicking send, but in this example the button returns an error page.
+- link " Video player doesn’t work Video players should quickly buffer and play video files, but in this example some videos can’t be played.":
+  - paragraph: 
+  - heading "Video player doesn’t work" [level=5]
+  - paragraph: Video players should quickly buffer and play video files, but in this example some videos can’t be played.
+- link " Articles show an error page The articles should show appropriate content, but in this example clicking an article shows an error page.":
+  - paragraph: 
+  - heading "Articles show an error page" [level=5]
+  - paragraph: The articles should show appropriate content, but in this example clicking an article shows an error page.
+- link " Search button leads to an error A search button should find appropriate results, but in this example clicking on it leads to an error page.":
+  - paragraph: 
+  - heading "Search button leads to an error" [level=5]
+  - paragraph: A search button should find appropriate results, but in this example clicking on it leads to an error page.
+- link " Booking a table doesn't work The user should be able to book a table, but in this example the user cannot submit the booking form.":
+  - paragraph: 
+  - heading "Booking a table doesn't work" [level=5]
+  - paragraph: The user should be able to book a table, but in this example the user cannot submit the booking form.
+- contentinfo:
+  - list:
+    - listitem:
+      - link "uTest":
+        - img "uTest"
+    - listitem:
+      - link "Terms & Conditions"
+    - listitem:
+      - link "Privacy Policy"
+- button "×"
+- paragraph: Tutorial
+- paragraph: Click start to begin the guided site tutorial
+- button "Start"
+```
+
+# Test source
+
+```ts
+   1 | import { test } from '@playwright/test';
+   2 |
+   3 | export class MainPage {
+   4 | 	constructor(page) {
+   5 | 		this.page = page;
+   6 |
+   7 | 		this.bugPopup = page.getByRole('heading', { name: 'What did you find out?' });
+   8 |         this.crashOverlay = page.getByRole('heading', { name: 'You found a crash bug' });
+   9 |
+  10 |         this.closePopupButton = page.locator('#close-popup');
+  11 |         this.viewQuantity10Button = page.getByRole('link', { name: '10' });
+  12 |         this.viewQuantity25Button = page.getByRole('link', { name: '25' });
+  13 |         this.viewQuantity50Button = page.getByRole('link', { name: '50' });
+  14 |         this.productImage = page.locator('#ec_product_image_effect_4281370').getByRole('link');
+  15 |         this.productName = page.getByRole('link', { name: 'DNK Yellow Shoes' });
+  16 |         		
+  17 | 	};
+  18 | 	
+  19 | 	async open() {
+  20 | 		await test.step('Открыть https://academybugs.com/find-bugs/', async () => {
+  21 |             await this.page.goto('/');
+  22 |             });
+  23 | 	};
+  24 |     
+  25 |     async openProductImage() {
+  26 |         await test.step('Открыть productImage Dark Grey Jeans', async () => {
+> 27 |             await this.productImage.click();
+     |                                     ^ Error: locator.click: Test timeout of 60000ms exceeded.
+  28 |         });
+  29 | 	};
+  30 |
+  31 |     async goToProductPage() {
+  32 |         await test.step('Открыть productPage DNK Yellow Shoes', async () => {
+  33 |             await this.productName.click();
+  34 |         });
+  35 | 	};
+  36 |
+  37 |     async getViewQuantity(number) {
+  38 |         await test.step(`Нажать View ${number}`, async () => {
+  39 |             switch (number) {
+  40 |                 case 10:
+  41 |                     await this.viewQuantity10Button.click();
+  42 |                     break;
+  43 |                 case 25:
+  44 |                     await this.viewQuantity25Button.click();
+  45 |                     break;
+  46 |                 case 50:
+  47 |                     await this.viewQuantity50Button.click();
+  48 |                     break;
+  49 |                 default:
+  50 |                     throw new Error(`Недопустимое значение для getViewQuantity: ${number}`);
+  51 |             }
+  52 |         });
+  53 |     }
+  54 |     
+  55 |     async closePopup() {
+  56 | 		await test.step('Закрыть bugPopup', async () => {
+  57 |             await this.closePopupButton.click();
+  58 |         })
+  59 | 	};
+  60 | }
+  61 |
+```
