@@ -1,7 +1,6 @@
 import { expect } from '@playwright/test';
 import { test } from '../src/fixture/fixture';
-import { CommentBuilder } from '../src/helpers/builder';
-import { errorMessages } from '../src/helpers/errorMassages';
+import { CommentBuilder, errorMessages } from '../src/helpers/index';
 
 test.describe('Find bugs', () => {
 	

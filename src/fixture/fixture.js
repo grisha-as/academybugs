@@ -5,7 +5,7 @@ export const test = base.extend({
     app: async({ page }, use) => {
         const app = new App(page);
         //todo перенести в process.env
-        await page.goto('https://academybugs.com/find-bugs/');
+        await page.goto('/');
         await use(app);
     }
 });      
